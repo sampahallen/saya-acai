@@ -64,6 +64,16 @@ const u = (id: string, w = 800, h = 800) =>
   `https://images.unsplash.com/${id}?w=${w}&h=${h}&fit=crop&auto=format&q=80`;
 
 const SERIF: React.CSSProperties = { fontFamily: "'Fraunces', Georgia, serif" };
+const BRAND_TAGLINE = "Not just a café — an experience ✨";
+const ADDRESS_LINE = "716 La Vista Apartments and shops by Cosmo";
+const ADDRESS_CITY = "Accra, Ghana";
+const ADDRESS_FULL = `${ADDRESS_LINE}, ${ADDRESS_CITY}`;
+const PHONE_DISPLAY = "+233 54 485 3825";
+const WHATSAPP_URL = "https://wa.me/233544853825";
+const OPENING_HOURS = [
+  ["Monday – Friday", "7:30 AM – 7:00 PM"],
+  ["Saturday", "8:00 AM – 8:00 PM"],
+] as const;
 
 // ─── Reveal animation ─────────────────────────────────────────────────────────
 function useReveal(threshold = 0.12) {
@@ -268,22 +278,22 @@ function Footer({ go }: { go: (p: Page) => void }) {
             <div className="space-y-4 text-sm text-[#9BA98C]/70">
               <div className="flex gap-3 items-start">
                 <MapPin size={13} className="mt-0.5 shrink-0 text-[#5C4738]" />
-                <span>12 Liberation Road, Accra, Ghana</span>
+                <span>{ADDRESS_FULL}</span>
               </div>
               <div className="flex gap-3 items-start">
                 <Clock size={13} className="mt-0.5 shrink-0 text-[#5C4738]" />
-                <span>Mon–Fri 7am–8pm<br />Sat–Sun 8am–9pm</span>
+                <span>Mon–Fri 7:30am–7pm<br />Sat 8am–8pm</span>
               </div>
               <div className="flex gap-3 items-start">
                 <Phone size={13} className="mt-0.5 shrink-0 text-[#5C4738]" />
-                <span>+233 24 000 0000</span>
+                <span>{PHONE_DISPLAY}</span>
               </div>
             </div>
           </div>
         </div>
 
         <div className="border-t border-[#3A3A3A] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[8px] tracking-[0.25em] uppercase text-[#5C4738]">
-          <span>© 2024 SAYA. All rights reserved.</span>
+          <span>© 2026 SAYA. All rights reserved.</span>
           <span>Crafted with authenticity · Accra, Ghana</span>
         </div>
       </div>
@@ -311,7 +321,7 @@ function HomePage({ go }: { go: (p: Page) => void }) {
         <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
           <Reveal>
             <div className="text-[8px] tracking-[0.5em] uppercase text-white/50 mb-10">
-              Est. 2024 · Accra, Ghana
+              Est. 2025 · Accra, Ghana
             </div>
           </Reveal>
           <Reveal delay={150}>
@@ -322,8 +332,13 @@ function HomePage({ go }: { go: (p: Page) => void }) {
             </h1>
           </Reveal>
           <Reveal delay={300}>
-            <p className="text-base md:text-lg text-white/65 max-w-md mx-auto leading-relaxed mb-12 font-light tracking-wide">
+            <p className="text-base md:text-lg text-white/65 max-w-md mx-auto leading-relaxed mb-6 font-light tracking-wide">
               A luxury specialty cafe and matcha bar built around authentic ingredients, refined preparation, and quiet minimalist design.
+            </p>
+          </Reveal>
+          <Reveal delay={380}>
+            <p style={SERIF} className="text-lg md:text-xl italic text-white/85 mb-12">
+              {BRAND_TAGLINE}
             </p>
           </Reveal>
           <Reveal delay={450}>
@@ -811,7 +826,7 @@ function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16">
           <Reveal className="lg:col-span-5">
             <div>
-              <Label>Founded 2024</Label>
+              <Label>Founded 2025</Label>
               <h2 style={SERIF} className="text-4xl md:text-5xl font-light italic text-[#2C2C2C] leading-[1.15] mb-8">
                 The Idea of SAYA
               </h2>
@@ -1013,7 +1028,7 @@ function ReservationsPage() {
                     <input required type="date" className={inputCls} value={form.date} onChange={e => setForm({ ...form, date: e.target.value })} />
                     <select className={inputCls} value={form.time} onChange={e => setForm({ ...form, time: e.target.value })}>
                       <option value="">Preferred Time</option>
-                      {["7:00 AM", "7:30 AM", "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM"].map(t => (
+                      {["7:30 AM", "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "7:30 PM"].map(t => (
                         <option key={t} value={t}>{t}</option>
                       ))}
                     </select>
@@ -1041,12 +1056,7 @@ function ReservationsPage() {
               <div className="bg-[#EFE8DE] rounded-3xl p-8">
                 <div className="text-[9px] tracking-[0.3em] uppercase text-[#9BA98C] mb-5">Opening Hours</div>
                 <div className="space-y-3">
-                  {[
-                    ["Monday – Friday", "7:00 AM – 8:00 PM"],
-                    ["Saturday", "8:00 AM – 9:00 PM"],
-                    ["Sunday", "8:00 AM – 9:00 PM"],
-                    ["Public Holidays", "9:00 AM – 6:00 PM"],
-                  ].map(([day, hours]) => (
+                  {OPENING_HOURS.map(([day, hours]) => (
                     <div key={day} className="flex justify-between text-sm">
                       <span className="text-[#5C4738]">{day}</span>
                       <span className="text-[#8A7968]">{hours}</span>
@@ -1074,11 +1084,11 @@ function ReservationsPage() {
                 <div className="text-[9px] tracking-[0.3em] uppercase text-[#9BA98C] mb-5">Location</div>
                 <div className="flex gap-3 text-sm text-[#5C4738] mb-3">
                   <MapPin size={14} className="mt-0.5 shrink-0 text-[#9BA98C]" />
-                  <span>12 Liberation Road, Accra, Ghana</span>
+                  <span>{ADDRESS_FULL}</span>
                 </div>
                 <div className="flex gap-3 text-sm text-[#8A7968]">
                   <Phone size={14} className="mt-0.5 shrink-0 text-[#9BA98C]" />
-                  <span>+233 24 000 0000</span>
+                  <span>{PHONE_DISPLAY}</span>
                 </div>
               </div>
             </Reveal>
@@ -1101,7 +1111,7 @@ const EVENTS = [
   },
   {
     img: PH.bowl1, category: "Acai Tasting", title: "Brazilian Acai Morning",
-    date: "Every Sunday", time: "8:00 AM – 10:00 AM",
+    date: "By Booking", time: "8:30 AM – 10:30 AM",
     desc: "A focused tasting of pure Brazilian acai bowls, house toppings, and pairing notes with matcha, coffee, and fresh juice. Booking essential.",
     price: "₵150 per person", tag: "Recurring",
   },
@@ -1244,20 +1254,20 @@ function ContactPage() {
                   <div className="flex gap-3 items-start">
                     <MapPin size={14} className="mt-0.5 shrink-0 text-[#9BA98C]" />
                     <div>
-                      <div className="text-[#2C2C2C] mb-0.5">12 Liberation Road</div>
-                      <div className="text-[#8A7968]">Accra, Ghana</div>
+                      <div className="text-[#2C2C2C] mb-0.5">{ADDRESS_LINE}</div>
+                      <div className="text-[#8A7968]">{ADDRESS_CITY}</div>
                     </div>
                   </div>
                   <div className="flex gap-3 items-start">
                     <Clock size={14} className="mt-0.5 shrink-0 text-[#9BA98C]" />
                     <div className="text-[#8A7968]">
-                      <div>Mon–Fri: 7:00 AM – 8:00 PM</div>
-                      <div>Sat–Sun: 8:00 AM – 9:00 PM</div>
+                      <div>Mon–Fri: 7:30 AM – 7:00 PM</div>
+                      <div>Saturday: 8:00 AM – 8:00 PM</div>
                     </div>
                   </div>
                   <div className="flex gap-3 items-center">
                     <Phone size={14} className="shrink-0 text-[#9BA98C]" />
-                    <span className="text-[#5C4738]">+233 24 000 0000</span>
+                    <span className="text-[#5C4738]">{PHONE_DISPLAY}</span>
                   </div>
                   <div className="flex gap-3 items-center">
                     <MessageCircle size={14} className="shrink-0 text-[#9BA98C]" />
@@ -1276,7 +1286,7 @@ function ContactPage() {
                     <MapPin size={20} />
                   </div>
                   <div className="bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 text-xs text-[#2C2C2C] font-medium">
-                    SAYA · Liberation Road
+                    SAYA · La Vista
                   </div>
                 </div>
               </div>
@@ -1285,7 +1295,7 @@ function ContactPage() {
             {/* WhatsApp */}
             <Reveal delay={200}>
               <a
-                href="https://wa.me/233240000000"
+                href={WHATSAPP_URL}
                 className="flex items-center gap-4 bg-[#25D366]/10 border border-[#25D366]/20 rounded-2xl p-5 hover:bg-[#25D366]/15 transition-colors group"
               >
                 <div className="w-10 h-10 bg-[#25D366] rounded-full flex items-center justify-center shrink-0">
@@ -1293,7 +1303,7 @@ function ContactPage() {
                 </div>
                 <div>
                   <div className="text-sm text-[#2C2C2C] font-medium">Chat on WhatsApp</div>
-                  <div className="text-xs text-[#8A7968]">Quick responses, 7am – 9pm</div>
+                  <div className="text-xs text-[#8A7968]">Quick responses during opening hours</div>
                 </div>
                 <ChevronRight size={16} className="text-[#9BA98C] ml-auto group-hover:translate-x-1 transition-transform" />
               </a>
